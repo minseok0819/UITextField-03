@@ -8,13 +8,35 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController ,UITextFieldDelegate{
 
+    @IBOutlet weak var myTextField: UITextField!
+    
+    @IBOutlet weak var myLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+    
+        myTextField.delegate = self
+       myTextField.clearButtonMode = UITextField.ViewMode.always
     }
 
-
+    @IBAction func buttonPressed(_ sender: Any) {
+        let inString = myTextField.text
+        print(inString!)
+        myLabel.text = inString
+        myTextField.text = ""
+        myTextField.resignFirstResponder()
+    }
+    public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        myTextField.resignFirstResponder()
+        myTextField.backgroundColor = UIColor.yellow
+        return true
+    }
+    public func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        view.backgroundColor = UIColor.green
+        return true
 }
 
+}
